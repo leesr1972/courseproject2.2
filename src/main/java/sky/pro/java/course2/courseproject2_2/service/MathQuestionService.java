@@ -11,31 +11,31 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class JavaQuestionService implements QuestionService{
-    private final QuestionRepository javaQuestionRepository;
+public class MathQuestionService implements QuestionService{
+    private final QuestionRepository mathQuestionRepository;
 
-    public JavaQuestionService(@Qualifier("javaQuestionRepository") QuestionRepository javaQuestionRepository) {
-        this.javaQuestionRepository = javaQuestionRepository;
+    public MathQuestionService(@Qualifier("mathQuestionRepositiry") QuestionRepository mathQuestionRepository) {
+        this.mathQuestionRepository = mathQuestionRepository;
     }
 
     @Override
     public Question add(String question, String answer) {
-        return javaQuestionRepository.add(question, answer);
+        return mathQuestionRepository.add(question, answer);
     }
 
     @Override
     public Question remove(String question) {
-        return javaQuestionRepository.remove(question);
+        return mathQuestionRepository.remove(question);
     }
 
     @Override
     public Collection<Question> getAll() {
-        return javaQuestionRepository.getAll();
+        return mathQuestionRepository.getAll();
     }
 
     @Override
     public Question getRandomQuestion() {
-        List<Question> listOfQuestions = new ArrayList<>(javaQuestionRepository.getAll());
+        List<Question> listOfQuestions = new ArrayList<>(mathQuestionRepository.getAll());
         Random random = new Random();
         int numberOfQuestion = random.nextInt(listOfQuestions.size());
         return listOfQuestions.get(numberOfQuestion);

@@ -10,14 +10,14 @@ import sky.pro.java.course2.courseproject2_2.data.Question;
 import sky.pro.java.course2.courseproject2_2.exceptions.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static sky.pro.java.course2.courseproject2_2.constants.QuestionServiceTestConstants.*;
 
 @ExtendWith(MockitoExtension.class)
-class JavaQuestionServiceTest {
+class MathQuestionServiceTest {
 
     @Mock
-    private JavaQuestionRepository javaQuestionRepositoryMock;
+    private JavaQuestionRepository mathQuestionRepositoryMock;
 
     @InjectMocks
     private JavaQuestionService out;
@@ -25,36 +25,36 @@ class JavaQuestionServiceTest {
 
     @Test
     public void shouldReturnAddedQuestionWhenAdd() {
-        Question addedQuestion = new Question("Что такое тест?", "Это проверка кода.");
-        when(javaQuestionRepositoryMock.add("Что такое тест?", "Это проверка кода.")).
+        Question addedQuestion = new Question("4 + 4 = ", "8.");
+        when(mathQuestionRepositoryMock.add("4 + 4 = ", "8.")).
                 thenReturn(addedQuestion);
 
-        assertEquals(addedQuestion, out.add("Что такое тест?", "Это проверка кода."));
+        assertEquals(addedQuestion, out.add("4 + 4 = ", "8."));
     }
 
     @Test
     public void shouldReturnQUESTION_TESTWhenRemove() {
-        when(javaQuestionRepositoryMock.remove("Что такое цикл?")).
-                thenReturn(JAVA_QUESTION_TEST);
-        assertEquals(JAVA_QUESTION_TEST, out.remove("Что такое цикл?"));
+        when(mathQuestionRepositoryMock.remove("7 / 0 = ")).
+                thenReturn(MATH_QUESTION_TEST);
+        assertEquals(MATH_QUESTION_TEST, out.remove("7 / 0 = "));
     }
 
     @Test
     public void shouldThrowExceptionWhenQuestionNotFouns() {
-        when(javaQuestionRepositoryMock.remove("Такого вопроса нет.")).
+        when(mathQuestionRepositoryMock.remove("Такого вопроса нет.")).
                 thenThrow(NotFoundException.class);
         assertThrows(NotFoundException.class, () -> out.remove("Такого вопроса нет."));
     }
 
     @Test
     public void shouldReturnQUESTOINS_TEST() {
-        when(javaQuestionRepositoryMock.getAll()).thenReturn(JAVA_QUESTIONS_TEST);
-        assertEquals(JAVA_QUESTIONS_TEST, out.getAll());
+        when(mathQuestionRepositoryMock.getAll()).thenReturn(MATH_QUESTIONS_TEST);
+        assertEquals(MATH_QUESTIONS_TEST, out.getAll());
     }
 
     @Test
     public void checkNotNullWhenGetRandomQuestion() {
-        when(javaQuestionRepositoryMock.getAll()).thenReturn(JAVA_QUESTIONS_TEST);
+        when(mathQuestionRepositoryMock.getAll()).thenReturn(MATH_QUESTIONS_TEST);
         assertNotNull(out.getRandomQuestion());
     }
 }
