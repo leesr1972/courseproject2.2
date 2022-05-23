@@ -1,5 +1,6 @@
 package sky.pro.java.course2.courseproject2_2.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,8 +26,12 @@ class ExaminerServiceImplTest {
     @Mock
     private MathQuestionService mathQuestionServiceMock;
 
-    @InjectMocks
     private ExaminerServiceImpl out;
+
+    @BeforeEach
+    private void setUp() {
+        out = new ExaminerServiceImpl(javaQuestionServiceMock, mathQuestionServiceMock);
+    }
 
     @Test
     public void shouldThrowExceptionWhenTooMuchQuestions() {
@@ -47,6 +52,6 @@ class ExaminerServiceImplTest {
         when(mathQuestionServiceMock.getRandomQuestion()).thenReturn(questionList.get(5)).
                 thenReturn(questionList.get(6)).thenReturn(questionList.get(7)).
                 thenReturn(questionList.get(8)).thenReturn(questionList.get(9));
-        assertEquals(8, out.getQuestions(8).size());
+        assertEquals(3, out.getQuestions(3).size());
     }
 }
